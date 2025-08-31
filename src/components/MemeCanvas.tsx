@@ -54,7 +54,7 @@ const MemeCanvas = forwardRef<HTMLDivElement, MemeCanvasProps>(({
         {/* Header Text (fixed top bar) */}
         {headerText && headerText.text && (
           <div
-            data-header-text
+            data-header-text={headerText.id}
             className={`w-full font-bold transition-all duration-300 flex items-center bg-white border-b-2 border-black`}
             style={{
               fontSize: `${headerText.fontSize * CANVAS_CONFIG.textArea.header.fontSize}px`,
@@ -105,7 +105,7 @@ const MemeCanvas = forwardRef<HTMLDivElement, MemeCanvasProps>(({
           {regularTextFields.map(field => (
             <div
               key={field.id}
-              data-regular-text="true"
+              data-text-element={field.id}
               data-placeholder={!field.text}
               className={`absolute cursor-move select-none font-bold text-center px-2 py-1 transition-all duration-300`}
               style={{
@@ -121,7 +121,8 @@ const MemeCanvas = forwardRef<HTMLDivElement, MemeCanvasProps>(({
                 userSelect: 'none',
                 touchAction: 'none',
                 zIndex: selectedTextId === field.id ? 10 : 1,
-                whiteSpace: 'pre'
+                whiteSpace: 'pre',
+                textShadow: '2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000'
               }}
               onMouseDown={e => onMouseDown(e, field.id, 'text')}
               onTouchStart={e => onTouchStart(e, field.id, 'text')}
@@ -138,6 +139,7 @@ const MemeCanvas = forwardRef<HTMLDivElement, MemeCanvasProps>(({
           {imageFields.map(field => (
             <div
               key={field.id}
+              data-image-element={field.id}
               className={`absolute cursor-move transition-all duration-300`}
               style={{
                 left: `${field.x}%`,
@@ -164,7 +166,7 @@ const MemeCanvas = forwardRef<HTMLDivElement, MemeCanvasProps>(({
         {/* Footer Text (fixed bottom bar) */}
         {footerText && footerText.text && (
           <div
-            data-footer-text
+            data-footer-text={footerText.id}
             className={`w-full font-bold transition-all duration-300 flex items-center bg-white border-t-2 border-black`}
             style={{
               fontSize: `${footerText.fontSize * CANVAS_CONFIG.textArea.footer.fontSize}px`,
