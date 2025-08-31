@@ -25,8 +25,8 @@ export const captureMemeContainer = async (options: DownloadOptions = {}) => {
   }
 
   // Use the actual image dimensions for perfect capture
-  const width = memeImage.naturalWidth || memeImage.offsetWidth;
-  const height = memeImage.naturalHeight || memeImage.offsetHeight;
+  const width = memeImage.naturalWidth || memeImage.fullsetWidth;
+  const height = memeImage.naturalHeight || memeImage.fullsetHeight;
 
   console.log("Meme dimensions:", { width, height });
 
