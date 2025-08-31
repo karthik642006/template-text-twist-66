@@ -121,12 +121,13 @@ const processTextElements = (clonedContainer: HTMLElement, originalContainer: HT
 
   textElementTypes.forEach(({ selector, name }) => {
     const clonedElements = clonedContainer.querySelectorAll(selector);
+    const originalElements = originalContainer.querySelectorAll(selector);
+    
     console.log(`Found ${clonedElements.length} ${name} text elements`);
     
-    clonedElements.forEach((textEl, index) => {
-      const element = textEl as HTMLElement;
-      const dataAttribute = element.getAttribute(selector.slice(1, -1)); // Remove [ and ]
-      const originalElement = originalContainer.querySelector(`${selector}${dataAttribute ? `="${dataAttribute}"` : ''}`) as HTMLElement;
+    clonedElements.forEach((clonedElement, index) => {
+      const element = clonedElement as HTMLElement;
+      const originalElement = originalElements[index] as HTMLElement;
       
       if (originalElement) {
         console.log(`Processing ${name} text ${index}:`, element.textContent);
